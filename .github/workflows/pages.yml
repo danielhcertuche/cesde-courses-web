@@ -1,0 +1,54 @@
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Permite relanzar el despliegue sin tener que inventar un commit.
+  workflow_dispatch:
+
+# Dos despliegues simultáneos se pisan al empujar a gh-pages.
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      # npm ci instala exactamente lo que fija package-lock.json: sin esto las
+      # dependencias se resuelven de nuevo en cada corrida y el build deriva.
+      - name: Instalar
+        run: npm ci
+
+      - name: Verificar
+        run: |
+          npm run typecheck
+          npm run lint
+
+      - name: Construir
+        run: npm run build
+        env:
+          # Sin backend propio, la demo publicada lee el db.json del repositorio.
+          VITE_API_URL: https://my-json-server.typicode.com/danielhcertuche/cesde-courses-web
+
+      # GitHub Pages no reescribe las rutas a index.html, así que una recarga en
+      # /cursos daría 404. Servir la misma página como 404 devuelve el control al
+      # enrutador del navegador.
+      - name: Preparar respaldo de rutas
+        run: cp dist/index.html dist/404.html
+
+      - name: Publicar
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist

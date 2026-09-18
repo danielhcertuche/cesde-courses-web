@@ -10,7 +10,7 @@ if (!container) throw new Error('No se encontró el nodo raíz de la aplicación
 
 createRoot(container).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <ToastProvider>
         <App />
       </ToastProvider>

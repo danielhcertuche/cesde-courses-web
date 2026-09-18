@@ -111,7 +111,29 @@ consume el hook.
 ## API simulada
 
 json-server expone `GET/POST /docentes`, `GET/PUT/DELETE /docentes/:id`, `GET/POST /cursos` y
-`GET/PUT/DELETE /cursos/:id` a partir de `server/db.json`, con soporte de query params (`q`,
-filtros `_gte`/`_lte`, `_sort`/`_order`, `_page`/`_limit`, `_expand`). El archivo `server/db.json`
+`GET/PUT/DELETE /cursos/:id` a partir de `db.json`, con soporte de query params (`q`,
+filtros `_gte`/`_lte`, `_sort`/`_order`, `_page`/`_limit`, `_expand`). El archivo `db.json`
 se modifica en disco a medida que se usa la aplicación (crear, editar y eliminar escriben sobre
 ese archivo).
+
+## Despliegue
+
+El sitio se publica en GitHub Pages en cada empuje a `main`
+(`.github/workflows/pages.yml`): el workflow verifica tipos y estilo, construye y
+empuja `dist/` a la rama `gh-pages`.
+
+**https://danielhcertuche.github.io/cesde-courses-web/**
+
+La demo publicada no tiene servidor propio: lee el mismo `db.json` del repositorio
+a través de un json-server alojado de terceros, configurado con `VITE_API_URL`. La
+consecuencia es concreta y conviene saberla antes de probarla: **las lecturas y los
+cinco filtros funcionan de verdad, pero crear, editar y eliminar responden
+correctamente sin persistir** — al recargar, los datos vuelven al estado del
+repositorio. Para ejercitar el CRUD completo hay que levantar el proyecto en local,
+donde json-server sí escribe sobre `db.json`.
+
+Dos detalles del despliegue que no son evidentes: Vite construye con `base`
+`/cesde-courses-web/` porque Pages sirve el sitio bajo el nombre del repositorio, y
+el workflow copia `index.html` como `404.html` porque Pages no reescribe rutas y,
+sin eso, recargar en `/cursos` daría un 404.
+

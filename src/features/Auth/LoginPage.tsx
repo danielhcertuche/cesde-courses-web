@@ -29,17 +29,34 @@ function destinoTrasEntrar(location: Location): string {
   return `${estado.from.pathname}${estado.from.search}`
 }
 
+function Marca() {
+  return (
+    <div className="login-page__marca">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="7" fill="currentColor" />
+        <path
+          d="M21.2 11.4a6.2 6.2 0 1 0 0 9.2"
+          fill="none"
+          stroke="var(--c-text-inverse)"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+      </svg>
+      <span>Cursos Cesde</span>
+    </div>
+  )
+}
+
 function AvisoDemostrativo() {
   return (
     <div className="login-page__aviso">
-      <p>
-        Acceso de demostración: sólo compara estos datos con un valor fijo guardado en el
-        navegador. No hay autenticación real en el servidor — sirve para mostrar el flujo de
-        estado entre componentes, no para proteger nada.
-      </p>
       <p className="login-page__credenciales">
         Usuario <strong>{CREDENCIALES_DEMO.usuario}</strong> · Contraseña{' '}
         <strong>{CREDENCIALES_DEMO.contrasena}</strong>
+      </p>
+      <p>
+        Acceso de demostración: compara con un valor fijo del navegador. No hay autenticación
+        en el servidor; sirve para mostrar el flujo de estado entre componentes.
       </p>
     </div>
   )
@@ -73,6 +90,7 @@ export default function LoginPage() {
   return (
     <div className="login-page">
       <form className="login-page__card" onSubmit={form.handleSubmit} noValidate>
+        <Marca />
         <h1 className="login-page__title">Acceso</h1>
         <AvisoDemostrativo />
 
@@ -81,7 +99,9 @@ export default function LoginPage() {
             <Input
               {...controlProps}
               size="md"
-              autoComplete="username"
+              // Las credenciales son públicas y están en pantalla: el gestor de
+              // contraseñas no debe rellenar estos campos con otras guardadas.
+              autoComplete="off"
               value={form.valores.usuario}
               onChange={(evento) => editarCampo('usuario', evento.target.value)}
               onBlur={() => form.handleBlur('usuario')}
@@ -100,7 +120,7 @@ export default function LoginPage() {
               {...controlProps}
               size="md"
               type="password"
-              autoComplete="current-password"
+              autoComplete="new-password"
               value={form.valores.contrasena}
               onChange={(evento) => editarCampo('contrasena', evento.target.value)}
               onBlur={() => form.handleBlur('contrasena')}
@@ -110,6 +130,19 @@ export default function LoginPage() {
 
         <Button size="md" type="submit" fullWidth loading={form.enviando} disabled={!form.esValido}>
           Entrar
+        </Button>
+
+        <Button
+          size="md"
+          variant="ghost"
+          type="button"
+          fullWidth
+          onClick={() => {
+            setErrorCredenciales(null)
+            form.setValores(CREDENCIALES_DEMO)
+          }}
+        >
+          Usar credenciales de demostración
         </Button>
       </form>
     </div>

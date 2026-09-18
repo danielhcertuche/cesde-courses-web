@@ -55,12 +55,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setCargando(true)
     try {
       // Comparación directa, declarada como tal: nada de cifrado simulado ni de token.
+      // Se recortan los extremos porque las credenciales están publicadas en la
+      // propia pantalla y se copian y pegan: un espacio invisible al final no
+      // debe leerse como credencial equivocada.
       const coincide =
-        credenciales.usuario === CREDENCIALES_DEMO.usuario &&
-        credenciales.contrasena === CREDENCIALES_DEMO.contrasena
+        credenciales.usuario.trim() === CREDENCIALES_DEMO.usuario &&
+        credenciales.contrasena.trim() === CREDENCIALES_DEMO.contrasena
       if (coincide) {
-        setUsuario(credenciales.usuario)
-        guardarUsuario(credenciales.usuario)
+        setUsuario(CREDENCIALES_DEMO.usuario)
+        guardarUsuario(CREDENCIALES_DEMO.usuario)
       }
       return coincide
     } finally {

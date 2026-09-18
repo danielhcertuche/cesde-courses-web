@@ -3,7 +3,12 @@
  * Ningún componente lo importa: el acceso va client -> api/<dominio> -> hook -> componente.
  */
 
-const BASE_URL = '/api'
+/**
+ * En desarrollo se deja vacío y Vite reenvía `/api` a json-server, así no hay
+ * CORS ni una URL distinta por entorno. En un despliegue el frontend y la API
+ * viven en dominios separados, y ahí sí hace falta la URL absoluta.
+ */
+const BASE_URL = import.meta.env.VITE_API_URL ?? '/api'
 
 export class ApiError extends Error {
   constructor(

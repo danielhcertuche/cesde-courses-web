@@ -237,3 +237,17 @@
 .not-found__link:hover {
   color: var(--c-primary-hover);
 }
+
+/* Monograma de la barra superior. Hereda el azul de marca por `currentColor`. */
+.app-shell__marca {
+  width: var(--c-space-6);
+  height: var(--c-space-6);
+  color: var(--c-primary);
+  flex-shrink: 0;
+}
+
+.app-shell__title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--c-space-2);
+}

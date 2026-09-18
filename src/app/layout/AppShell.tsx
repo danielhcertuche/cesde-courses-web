@@ -24,6 +24,22 @@ const NAV_ITEMS: NavItem[] = [
  * ≥1024px, rail de iconos entre 640 y 1024px, menú desplegable en la barra
  * superior por debajo de 640px (ver AppShell.css).
  */
+/** Monograma de la aplicación: propio, no la identidad institucional de Cesde. */
+function MarcaIcono() {
+  return (
+    <svg className="app-shell__marca" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" rx="7" fill="currentColor" />
+      <path
+        d="M21.2 11.4a6.2 6.2 0 1 0 0 9.2"
+        fill="none"
+        stroke="var(--c-text-inverse)"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+
 export function AppShell() {
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -75,7 +91,10 @@ function TopBar({ menuOpen, onToggle }: { menuOpen: boolean; onToggle: () => voi
       >
         {menuOpen ? <IconClose /> : <IconMenu />}
       </button>
-      <h1 className="app-shell__title">Cursos Cesde</h1>
+      <h1 className="app-shell__title">
+        <MarcaIcono />
+        Cursos Cesde
+      </h1>
     </header>
   )
 }

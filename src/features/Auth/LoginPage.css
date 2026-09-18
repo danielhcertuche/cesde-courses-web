@@ -43,3 +43,24 @@
 .login-page__credenciales {
   color: var(--c-text);
 }
+
+/* La marca encabeza la tarjeta: hasta ahora la pantalla no tenía identidad. */
+.login-page__marca {
+  display: flex;
+  align-items: center;
+  gap: var(--c-space-2);
+  color: var(--c-primary);
+  font-weight: 600;
+  font-size: var(--c-text-md);
+}
+
+.login-page__marca svg {
+  width: var(--c-space-8);
+  height: var(--c-space-8);
+}
+
+/* El aviso pesaba más que el propio formulario: se rebaja a nota de apoyo. */
+.login-page__aviso p:not(.login-page__credenciales) {
+  font-size: var(--c-text-xs);
+  line-height: 1.45;
+}

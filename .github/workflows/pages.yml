@@ -38,8 +38,9 @@ jobs:
       - name: Construir
         run: npm run build
         env:
-          # Sin backend propio, la demo publicada lee el db.json del repositorio.
-          VITE_API_URL: https://my-json-server.typicode.com/danielhcertuche/cesde-courses-web
+          # Sin backend propio, la demo publicada simula el CRUD en el navegador
+          # (localStorage), sembrado desde el db.json del repositorio.
+          VITE_API_MODE: demo
 
       # GitHub Pages no reescribe las rutas a index.html, así que una recarga en
       # /cursos daría 404. Servir la misma página como 404 devuelve el control al

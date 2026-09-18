@@ -1,0 +1,18 @@
+/* Franja discreta y permanente: sólo existe en el build de la demo publicada. */
+
+.demo-banner {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--c-space-2);
+  padding: var(--c-space-2) var(--c-space-4);
+  background: var(--c-warning-soft);
+  color: var(--c-warning);
+  border-bottom: 1px solid var(--c-border);
+  font-size: var(--c-text-sm);
+}
+
+.demo-banner__text {
+  flex: 1;
+  min-width: 0;
+}

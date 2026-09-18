@@ -124,13 +124,15 @@ empuja `dist/` a la rama `gh-pages`.
 
 **https://danielhcertuche.github.io/cesde-courses-web/**
 
-La demo publicada no tiene servidor propio: lee el mismo `db.json` del repositorio
-a través de un json-server alojado de terceros, configurado con `VITE_API_URL`. La
-consecuencia es concreta y conviene saberla antes de probarla: **las lecturas y los
-cinco filtros funcionan de verdad, pero crear, editar y eliminar responden
-correctamente sin persistir** — al recargar, los datos vuelven al estado del
-repositorio. Para ejercitar el CRUD completo hay que levantar el proyecto en local,
-donde json-server sí escribe sobre `db.json`.
+La demo publicada no tiene servidor propio: construye con `VITE_API_MODE=demo`, que
+activa un backend simulado en el navegador (`src/shared/api/demo/`). Se siembra con
+el mismo `db.json` del repositorio y persiste cada cambio en el `localStorage` de
+cada visitante, así que **crear, editar y eliminar funcionan de verdad y sobreviven
+al refresco**. Los datos son privados de cada navegador — no se comparten entre
+visitantes ni vuelven al servidor — y un aviso permanente en la interfaz (sólo
+visible en modo demo) permite restablecerlos al estado original en cualquier
+momento. El backend real del proyecto sigue siendo json-server: `npm run dev` lo
+levanta igual que siempre y es el único lugar donde `db.json` se escribe en disco.
 
 Dos detalles del despliegue que no son evidentes: Vite construye con `base`
 `/cesde-courses-web/` porque Pages sirve el sitio bajo el nombre del repositorio, y

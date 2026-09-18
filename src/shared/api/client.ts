@@ -5,20 +5,29 @@
 
 /**
  * En desarrollo se deja vacío y Vite reenvía `/api` a json-server, así no hay
- * CORS ni una URL distinta por entorno. En un despliegue el frontend y la API
- * viven en dominios separados, y ahí sí hace falta la URL absoluta.
+ * CORS ni una URL distinta por entorno. En un despliegue contra un backend
+ * propio (json-server u otro) en dominio separado, `VITE_API_URL` da la URL
+ * absoluta. En modo demo (`VITE_API_MODE=demo`) no se usa: no hay red.
  */
 const BASE_URL = import.meta.env.VITE_API_URL ?? '/api'
 
-export class ApiError extends Error {
-  constructor(
-    readonly status: number,
-    message: string,
-  ) {
-    super(message)
-    this.name = 'ApiError'
-  }
+/**
+ * Publicación sin backend propio: las peticiones las resuelve un backend
+ * simulado en memoria/`localStorage` (`api/demo/`) en vez de `fetch`. Se
+ * importa dinámicamente y sólo bajo esta condición para que el módulo (y el
+ * `db.json` que arrastra como semilla) no entre en el bundle cuando no hace
+ * falta — en particular, nunca en `npm run dev`.
+ */
+const DEMO_MODE = import.meta.env.VITE_API_MODE === 'demo'
+
+let demoModule: Promise<typeof import('./demo')> | undefined
+function loadDemoModule(): Promise<typeof import('./demo')> {
+  demoModule ??= import('./demo')
+  return demoModule
 }
+
+import { ApiError } from './apiError'
+export { ApiError } from './apiError'
 
 export interface Paged<T> {
   items: T[]
@@ -53,6 +62,11 @@ async function parseError(response: Response): Promise<string> {
 }
 
 export async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  if (DEMO_MODE) {
+    const demo = await loadDemoModule()
+    return demo.demoRequest<T>(path, init)
+  }
+
   let response: Response
   try {
     response = await fetch(`${BASE_URL}${path}`, {
@@ -71,6 +85,11 @@ export async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 /** Variante de lectura que además expone el total de la cabecera de paginación. */
 export async function requestPaged<T>(path: string): Promise<Paged<T>> {
+  if (DEMO_MODE) {
+    const demo = await loadDemoModule()
+    return demo.demoRequestPaged<T>(path)
+  }
+
   const response = await fetch(`${BASE_URL}${path}`)
   if (!response.ok) throw new ApiError(response.status, await parseError(response))
 

@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactElement } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
+import { DemoBanner } from './DemoBanner'
 import './AppShell.css'
 
 interface NavItem {
@@ -41,6 +42,8 @@ export function AppShell() {
           <NavLinks onNavigate={() => setMenuOpen(false)} />
         </nav>
       )}
+
+      <DemoBanner />
 
       <div className="app-shell__body">
         <nav className="app-shell__nav" aria-label="Principal">

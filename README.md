@@ -45,6 +45,11 @@ que tenga cursos asociados (la acción se bloquea y se indica cuántos cursos ti
 reasignen antes de reintentar), y los nombres de curso, los documentos de docente y los correos de
 docente son únicos.
 
+El acceso a `/cursos` y `/docentes` exige una sesión demostrativa (usuario `admin`, contraseña
+`cesde2026`, visibles en la propia pantalla de acceso): sirve para mostrar comunicación entre
+componentes y rutas protegidas, no reemplaza una autenticación real, ya que la credencial se
+compara en el navegador y no existe backend que la valide.
+
 ## Filtros de búsqueda
 
 El listado de cursos combina cinco filtros. El estado vive en la URL (`useSearchParams`), de modo

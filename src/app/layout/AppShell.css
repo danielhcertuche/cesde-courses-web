@@ -83,6 +83,8 @@
 .app-shell__nav {
   flex: 0 0 var(--c-nav-width);
   width: var(--c-nav-width);
+  display: flex;
+  flex-direction: column;
   background: var(--c-surface);
   border-right: 1px solid var(--c-border);
   overflow-y: auto;
@@ -130,6 +132,29 @@
   padding: var(--c-space-6);
 }
 
+/* --- Usuario activo + cerrar sesión ------------------------------------- */
+/* En el nav lateral/rail se ancla al fondo (`margin-top: auto`); en el menú
+   desplegable móvil (flujo normal, no flex) simplemente queda al final. */
+
+.app-shell__user {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--c-space-2);
+  padding: var(--c-space-3) var(--c-space-2);
+  border-top: 1px solid var(--c-border);
+}
+
+.app-shell__user-name {
+  padding-inline: var(--c-space-1);
+  color: var(--c-text-muted);
+  font-size: var(--c-text-sm);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* --- Breakpoint 640–1024px: rail de iconos ------------------------------ */
 
 @media (min-width: 640px) and (max-width: 1023.98px) {
@@ -155,6 +180,12 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+  }
+
+  /* Sin espacio para nombre + botón en el rail de 60px: la sesión sigue siendo
+     visible y accionable en el menú desplegable móvil y en el nav completo. */
+  .app-shell__nav .app-shell__user {
+    display: none;
   }
 }
 

@@ -1,5 +1,7 @@
 import { useEffect, useState, type ReactElement } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
+import { Button } from '@/ui'
+import { useAuth } from '@/features/Auth/AuthContext'
 import { DemoBanner } from './DemoBanner'
 import './AppShell.css'
 
@@ -40,6 +42,7 @@ export function AppShell() {
       {menuOpen && (
         <nav id="app-shell-mobile-nav" className="app-shell__mobile-nav" aria-label="Menú de navegación">
           <NavLinks onNavigate={() => setMenuOpen(false)} />
+          <UserPanel onNavigate={() => setMenuOpen(false)} />
         </nav>
       )}
 
@@ -48,6 +51,7 @@ export function AppShell() {
       <div className="app-shell__body">
         <nav className="app-shell__nav" aria-label="Principal">
           <NavLinks />
+          <UserPanel />
         </nav>
         <main className="app-shell__content">
           <Outlet />
@@ -95,6 +99,31 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
         </li>
       ))}
     </ul>
+  )
+}
+
+/**
+ * Lee `usuario`/`salir` de `AuthContext`: la mitad "lectura" de la demostración de
+ * comunicación entre componentes (la mitad "escritura" es `LoginPage`). No se
+ * renderiza nada si, por alguna razón, se monta sin sesión — no debería ocurrir
+ * porque `AppShell` sólo envuelve rutas protegidas, pero evita un usuario vacío.
+ */
+function UserPanel({ onNavigate }: { onNavigate?: () => void }) {
+  const { usuario, salir } = useAuth()
+  if (!usuario) return null
+
+  function cerrarSesion() {
+    salir()
+    onNavigate?.()
+  }
+
+  return (
+    <div className="app-shell__user">
+      <span className="app-shell__user-name">{usuario}</span>
+      <Button size="sm" variant="ghost" fullWidth onClick={cerrarSesion}>
+        Cerrar sesión
+      </Button>
+    </div>
   )
 }
 

@@ -14,8 +14,7 @@ Aplicación web de administración de cursos y docentes de Cesde: SPA sobre una 
 
 No se usa ninguna librería de componentes, de iconos, de formularios ni de manejo de estado: la
 interfaz (`src/ui/`), la validación (`src/shared/validation/`), los iconos SVG (`src/ui/icons/`) y
-el acceso a datos (`src/shared/api/` + hooks propios) son código propio del repositorio. Es una
-decisión deliberada para que la evaluación mida manejo de frontend directamente, no el uso de un kit.
+el acceso a datos (`src/shared/api/` + hooks propios) son código propio del repositorio. 
 
 ## Requisitos previos
 

@@ -1,0 +1,12 @@
+.docentes-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--c-space-4);
+  margin-bottom: var(--c-space-6);
+}
+
+.docentes-page__title {
+  font-size: var(--c-text-xl);
+  font-weight: 600;
+}

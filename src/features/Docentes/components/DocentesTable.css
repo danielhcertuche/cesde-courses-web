@@ -1,0 +1,38 @@
+.docentes-table__toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--c-space-1);
+  margin-bottom: var(--c-space-4);
+  /* Ancho acotado del filtro de búsqueda, compuesto a partir de tokens de espaciado (R2: sin medidas mágicas). */
+  max-width: calc(var(--c-space-10) * 8);
+}
+
+.docentes-table__toolbar-label {
+  font-size: var(--c-text-sm);
+  font-weight: 500;
+  color: var(--c-text-muted);
+}
+
+.docentes-table__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--c-space-2);
+}
+
+/* Las acciones no se envuelven: apiladas duplican el alto de cada fila. */
+.docentes-table__actions {
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+/* «Eliminar» en rojo solido, repetido en todas las filas, domina la pantalla y
+   compite con la accion principal. El enfasis pleno se reserva para el dialogo
+   de confirmacion, donde la decision de verdad se toma. */
+.docentes-table__delete {
+  color: var(--c-danger);
+}
+
+.docentes-table__delete:hover:not(:disabled) {
+  background: var(--c-danger-soft);
+  color: var(--c-danger-hover);
+}

@@ -1,0 +1,11 @@
+.ui-confirm-dialog__description {
+  color: var(--c-text-muted);
+  font-size: var(--c-text-base);
+}
+
+.ui-confirm-dialog__actions {
+  display: flex;
+  gap: var(--c-space-3);
+  width: 100%;
+  justify-content: flex-end;
+}

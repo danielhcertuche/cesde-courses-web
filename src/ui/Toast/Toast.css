@@ -41,6 +41,10 @@
 }
 
 .ui-toast__close {
+  /* 24x24 es el objetivo mínimo que exige WCAG 2.2 (2.5.8); el icono mide 14. */
+  width: var(--c-space-6);
+  height: var(--c-space-6);
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;

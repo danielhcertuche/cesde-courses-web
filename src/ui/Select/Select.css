@@ -7,7 +7,7 @@
 .ui-select__control {
   width: 100%;
   appearance: none;
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-border-control);
   border-radius: var(--c-radius);
   background: var(--c-surface);
   color: var(--c-text);
@@ -26,7 +26,7 @@
 }
 
 .ui-select__control:hover:not(:disabled) {
-  border-color: var(--c-border-hover);
+  border-color: var(--c-border-control-hover);
 }
 
 .ui-select__control:focus-visible {

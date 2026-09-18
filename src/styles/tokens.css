@@ -15,6 +15,11 @@
   /* Borde */
   --c-border: #dde2ea;
   --c-border-hover: #c6cdd9;
+  /* Los dos anteriores son separadores decorativos: 1.30:1 y 1.60:1 sobre
+     superficie blanca. Un borde que delimita un control es información, y
+     WCAG 2.2 (1.4.11) le exige 3:1, así que los controles usan estos otros. */
+  --c-border-control: #828a99;
+  --c-border-control-hover: #67707f;
   --c-border-focus: #1f4e79;
 
   /* Marca */
@@ -23,7 +28,8 @@
   --c-primary-soft: #e8eff6;
 
   /* Estado */
-  --c-success: #15803d;
+  /* #15803d daba 4.46:1 sobre --c-success-soft, por debajo del 4.5:1 exigido. */
+  --c-success: #126d34;
   --c-success-soft: #e7f5ec;
   --c-warning: #b45309;
   --c-warning-soft: #fdf3e6;

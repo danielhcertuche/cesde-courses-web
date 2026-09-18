@@ -1,0 +1,208 @@
+/* Armazón: barra superior + nav + contenido. Toda medida y color viene de
+   src/styles/tokens.css — cero literales aquí. */
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--c-bg);
+}
+
+/* --- Barra superior --------------------------------------------------- */
+
+.app-shell__topbar {
+  flex: 0 0 var(--c-topbar-height);
+  height: var(--c-topbar-height);
+  display: flex;
+  align-items: center;
+  gap: var(--c-space-3);
+  padding-inline: var(--c-space-4);
+  background: var(--c-surface);
+  border-bottom: 1px solid var(--c-border);
+  position: relative;
+  z-index: 20;
+}
+
+.app-shell__title {
+  font-size: var(--c-text-lg);
+  font-weight: 600;
+  color: var(--c-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* Botón hamburguesa: sólo existe visualmente por debajo de 640px. */
+.app-shell__menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--c-control-sm);
+  height: var(--c-control-sm);
+  flex: 0 0 auto;
+  padding: 0;
+  border: 1px solid var(--c-border);
+  border-radius: var(--c-radius-sm);
+  background: var(--c-surface);
+  color: var(--c-text);
+  cursor: pointer;
+  transition: background-color var(--c-transition), border-color var(--c-transition);
+}
+
+.app-shell__menu-toggle:hover {
+  background: var(--c-surface-muted);
+  border-color: var(--c-border-hover);
+}
+
+/* --- Menú desplegable móvil --------------------------------------------- */
+
+.app-shell__mobile-nav {
+  display: none;
+  position: absolute;
+  top: var(--c-topbar-height);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: var(--c-surface);
+  border-bottom: 1px solid var(--c-border);
+  box-shadow: var(--c-shadow-md);
+  max-height: calc(100vh - var(--c-topbar-height));
+  overflow-y: auto;
+}
+
+/* --- Cuerpo: nav lateral + contenido ------------------------------------ */
+
+.app-shell__body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.app-shell__nav {
+  flex: 0 0 var(--c-nav-width);
+  width: var(--c-nav-width);
+  background: var(--c-surface);
+  border-right: 1px solid var(--c-border);
+  overflow-y: auto;
+  padding-block: var(--c-space-2);
+}
+
+.app-shell__nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 var(--c-space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--c-space-1);
+}
+
+.app-shell__nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--c-space-3);
+  padding: var(--c-space-2) var(--c-space-3);
+  border-radius: var(--c-radius);
+  color: var(--c-text-muted);
+  text-decoration: none;
+  font-size: var(--c-text-base);
+  font-weight: 500;
+  transition: background-color var(--c-transition), color var(--c-transition);
+}
+
+.app-shell__nav-link:hover {
+  background: var(--c-surface-muted);
+  color: var(--c-text);
+}
+
+.app-shell__nav-link--active {
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+  font-weight: 600;
+}
+
+.app-shell__content {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--c-space-6);
+}
+
+/* --- Breakpoint 640–1024px: rail de iconos ------------------------------ */
+
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .app-shell__nav {
+    flex-basis: var(--c-nav-width-rail);
+    width: var(--c-nav-width-rail);
+  }
+
+  .app-shell__nav-link {
+    justify-content: center;
+    padding: var(--c-space-2);
+  }
+
+  /* La etiqueta sigue en el DOM (accesible para lectores de pantalla) pero
+     se oculta visualmente: el rail sólo muestra el icono. */
+  .app-shell__nav-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* --- Breakpoint <640px: nav lateral fuera, menú superior --------------- */
+
+@media (max-width: 639.98px) {
+  .app-shell__nav {
+    display: none;
+  }
+
+  .app-shell__menu-toggle {
+    display: inline-flex;
+  }
+
+  .app-shell__mobile-nav {
+    display: block;
+  }
+
+  .app-shell__content {
+    padding: var(--c-space-4);
+  }
+}
+
+/* --- Página 404 ---------------------------------------------------------
+   Vive aquí porque src/app/pages/NotFound.tsx no tiene hoja propia; el
+   contenido ya hereda el padding de .app-shell__content. */
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--c-space-3);
+  text-align: center;
+  padding-block: var(--c-space-8);
+  color: var(--c-text-muted);
+}
+
+.not-found__code {
+  font-size: var(--c-text-2xl);
+  font-weight: 600;
+  color: var(--c-text);
+}
+
+.not-found__link {
+  color: var(--c-primary);
+  font-weight: 500;
+}
+
+.not-found__link:hover {
+  color: var(--c-primary-hover);
+}

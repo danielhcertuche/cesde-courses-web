@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import { ToastProvider } from '@/ui'
 import App from './App'
 import './styles/base.css'
 
@@ -10,7 +11,9 @@ if (!container) throw new Error('No se encontró el nodo raíz de la aplicación
 createRoot(container).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <ToastProvider>
+        <App />
+      </ToastProvider>
     </BrowserRouter>
   </StrictMode>,
 )

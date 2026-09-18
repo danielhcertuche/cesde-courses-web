@@ -1,0 +1,92 @@
+/* Barra de filtros de Cursos (spec §3, §5). Toda medida y color viene de
+   src/styles/tokens.css — cero literales aquí. */
+
+.cursos-filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--c-space-3);
+  padding: var(--c-space-4);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--c-radius-lg);
+}
+
+.cursos-filters__bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--c-space-3);
+}
+
+/* El botón de colapso sólo existe visualmente por debajo de 640px: en
+   escritorio y tablet el panel de filtros está siempre visible. */
+.cursos-filters__toggle {
+  display: none;
+}
+
+.cursos-filters__panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--c-space-4);
+}
+
+.cursos-filters__field {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.cursos-filters__range {
+  display: flex;
+  gap: var(--c-space-3);
+}
+
+.cursos-filters__range > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+@media (max-width: 639.98px) {
+  .cursos-filters {
+    padding: var(--c-space-3);
+  }
+
+  .cursos-filters__bar {
+    justify-content: space-between;
+  }
+
+  .cursos-filters__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--c-space-2);
+    height: var(--c-control-sm);
+    padding-inline: var(--c-space-3);
+    border: 1px solid var(--c-border);
+    border-radius: var(--c-radius-sm);
+    background: var(--c-surface);
+    color: var(--c-text);
+    font-size: var(--c-text-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--c-transition), border-color var(--c-transition);
+  }
+
+  .cursos-filters__toggle:hover {
+    background: var(--c-surface-muted);
+    border-color: var(--c-border-hover);
+  }
+
+  .cursos-filters__panel {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cursos-filters__panel--expanded {
+    display: flex;
+  }
+
+  .cursos-filters__range {
+    flex-direction: column;
+  }
+}

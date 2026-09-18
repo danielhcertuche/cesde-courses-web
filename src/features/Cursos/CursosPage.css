@@ -1,0 +1,22 @@
+/* Layout de la página de Cursos. Toda medida y color viene de
+   src/styles/tokens.css — cero literales aquí. */
+
+.cursos-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--c-space-4);
+}
+
+.cursos-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--c-space-3);
+}
+
+.cursos-page__header h2 {
+  font-size: var(--c-text-xl);
+  font-weight: 600;
+  color: var(--c-text);
+}

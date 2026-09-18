@@ -1,0 +1,27 @@
+/* Acciones de fila de la tabla de Cursos. Toda medida y color viene de
+   src/styles/tokens.css — cero literales aquí. */
+
+.cursos-table__actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--c-space-2);
+}
+
+/* Las acciones no se envuelven: apiladas duplican el alto de cada fila. */
+.cursos-table__actions {
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+/* «Eliminar» en rojo solido, repetido en todas las filas, domina la pantalla y
+   compite con la accion principal. El enfasis pleno se reserva para el dialogo
+   de confirmacion, donde la decision de verdad se toma. */
+.cursos-table__delete {
+  color: var(--c-danger);
+}
+
+.cursos-table__delete:hover:not(:disabled) {
+  background: var(--c-danger-soft);
+  color: var(--c-danger-hover);
+}
